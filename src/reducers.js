@@ -8,8 +8,16 @@ const user = (state = {}, action) => {
         case 'LOGIN':
         case 'LOGOUT':
            return action.user;
+        case 'REQUEST_AUTH':
+            return action.user;
         default :
             return state;
+    }
+};
+
+const table = (state = [], action) => {
+    switch (action.type) {
+
     }
 };
 

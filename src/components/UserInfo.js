@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 import '../css/userInfo.css'
 
 const UserInfo =({ user, logout }) => {
-        if(Object.keys(user).length < 1) {
+        if(!user.displayName) {
             return <h2>Добро пожаловать</h2>
         } else {
             const name = user.displayName;

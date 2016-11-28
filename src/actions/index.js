@@ -13,22 +13,34 @@ export const login = (user) => {
 export const logout = () => {
     return {
         type: 'LOGOUT',
-        user : {}
+        user : {
+            isAuthRequired : false,
+            error : false
+        }
     }
 };
 
-function requestAuth() {
+function requestAuth(error) {
     return {
-        type: 'REQUEST_AUTH'
+        type: 'REQUEST_AUTH',
+        user : {
+            isAuthRequired : true,
+            error : error
+        }
     }
 }
 
 function authorization(username, password){
-    return dispatch => {
-        dispatch(requestAuth());
-        return fetch(`http://localhost:8080`)
-            .then(response => response.json())
-            .then(json => dispatch(login(json)))
+    return async dispatch => {
+        dispatch(requestAuth(false));
+        try {
+            const data = await fetch(`http://localhost:8080/auth`);
+            const user = await data.json();
+            return dispatch(login(user))
+        } catch (err) {
+            return dispatch(requestAuth(true))
+        }
+
     }
 }
 
@@ -37,3 +49,28 @@ export function Auth(username, password) {
             return dispatch(authorization(username, password))
     }
 }
+
+function requestTable(){
+    return {
+        type: 'REQUEST_TABLE'
+    }
+}
+
+export const LoadTables = (table) => {
+    return {
+        type: 'LOAD_TABLE',
+        table
+    }
+};
+
+function fetchTables(){
+    return async dispatch => {
+        const data = await fetch(`http://localhost:8080/table`);
+        const table = await data.json();
+        return dispatch(LoadTables(table))
+    }
+}
+
+export const GetTables = () => {
+    return dispatch => dispatch(fetchTables())
+};

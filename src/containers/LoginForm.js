@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import '../css/loginForm.css'
 
-let LoginForm = ({ dispatch }) => {
+let LoginForm = ({ user, dispatch }) => {
     let username, password;
     function handleSubmit(e){
         e.preventDefault();
@@ -37,6 +37,7 @@ let LoginForm = ({ dispatch }) => {
                   <Button type="submit">
                       Войти в систему
                   </Button>
+                  {user.error ? <p style={{color: 'red', paddingTop: '15px'}}>Сервер не отвечает попробуйте еще раз позже</p> : user.isAuthRequired ? <p style={{color: 'blue', paddingTop: '15px'}}>Загрузка...</p> : ''}
               </Form>
           </div>
         );
