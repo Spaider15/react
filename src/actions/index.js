@@ -2,6 +2,7 @@
  * Created by Busarov Ivan Spaider629@gmail.com on 11/26/2016.
  */
 import fetch from 'isomorphic-fetch'
+import { REQUEST_TABLE_DATA, RECIEVE_TABLE_DATA, RECIEVE_TABLE_LOAD_ERROR } from './actionTypes'
 
 export const login = (user) => {
     return {
@@ -50,27 +51,34 @@ export function Auth(username, password) {
     }
 }
 
-function requestTable(){
+function recieveTableData(data){
     return {
-        type: 'REQUEST_TABLE'
+        type : RECIEVE_TABLE_DATA,
+        data
     }
 }
 
-export const LoadTables = (table) => {
-    return {
-        type: 'LOAD_TABLE',
-        table
-    }
-};
+function shouldFetchData ({table}) {
+    return (!table.data || !table.isFetching)
+}
 
-function fetchTables(){
-    return async dispatch => {
-        const data = await fetch(`http://localhost:8080/table`);
-        const table = await data.json();
-        return dispatch(LoadTables(table))
+function fetchDispatch() {
+    return async (dispatch) => {
+        dispatch(REQUEST_TABLE_DATA);
+        try {
+            const data = await fetch(`http://localhost:8080/table`);
+            const table = await data.json();
+            return dispatch(recieveTableData(data))
+        } catch(err){
+            dispatch(RECIEVE_TABLE_LOAD_ERROR);
+        }
     }
 }
 
-export const GetTables = () => {
-    return dispatch => dispatch(fetchTables())
-};
+function fetchData () {
+    return (dispatch, getState) => {
+        if (shouldFetchData(getState())) {
+            return dispatch(fetchDispatch())
+        }
+    }
+}
