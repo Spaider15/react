@@ -4,7 +4,11 @@
 import { combineReducers } from 'redux'
 import { REQUEST_TABLE_DATA, RECIEVE_TABLE_DATA, RECIEVE_TABLE_LOAD_ERROR } from './actions/actionTypes'
 
-const user = (state = {}, action) => {
+const initialUser = {
+    error : null
+};
+
+const user = (state = initialUser, action) => {
     switch (action.type){
         case 'LOGIN':
         case 'LOGOUT':

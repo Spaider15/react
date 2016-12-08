@@ -18,7 +18,7 @@ let Main = ({ user }) => {
     if( user.displayName ) {
         return(
             <div>
-                <Header user={user}/>
+                <Header/>
                 <div className="login">
                     <h1>Hello {user.displayName}</h1>
                 </div>
@@ -27,9 +27,9 @@ let Main = ({ user }) => {
     } else {
         return(
             <div>
-                <Header user={user}/>
+                <Header/>
                 <div className="login">
-                    <LoginForm user={user}/>
+                    <LoginForm/>
                 </div>
             </div>
         );

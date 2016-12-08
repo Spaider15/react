@@ -7,11 +7,11 @@ import { connect } from 'react-redux'
 import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import '../css/loginForm.css'
 
-let LoginForm = ({ user, dispatch }) => {
+let LoginForm = ({user, login}) => {
     let username, password;
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(Auth(username, password))
+        login(username, password);
     }
 
         return(
@@ -42,6 +42,17 @@ let LoginForm = ({ user, dispatch }) => {
           </div>
         );
 };
-
-LoginForm = connect()(LoginForm);
+const mapStateToProps = ({user}) => {
+    return {
+        user
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (username, password) => {
+            dispatch(Auth(username, password))
+        }
+    }
+}
+LoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 export default LoginForm;
