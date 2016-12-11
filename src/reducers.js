@@ -2,10 +2,11 @@
  * Created by Busarov Ivan Spaider629@gmail.com on 11/26/2016.
  */
 import { combineReducers } from 'redux'
-import { REQUEST_TABLE_DATA, RECIEVE_TABLE_DATA, RECIEVE_TABLE_LOAD_ERROR } from './actions/actionTypes'
+import { REQUEST_TABLE_DATA, RECIEVE_TABLE_DATA, RECIEVE_TABLE_LOAD_ERROR, FILTER_TABLE_DATA, ACTIVATE_TABLE_ROW, ACTION_ON_MODAL_WINDOW } from './actions/actionTypes'
 
 const initialUser = {
-    error : null
+    error : null,
+    displayName : "Spaider"
 };
 
 const user = (state = initialUser, action) => {
@@ -20,8 +21,28 @@ const user = (state = initialUser, action) => {
     }
 };
 
+const initialTable = {
+    isFetching: false,
+    error : false,
+    data: [],
+    filterString: '',
+    sortDesc: false,
+    sortKey: '',
+    editable : false,
+    activeRow : null,
+    createModalWindow : false,
+    editModalWindow : false
+};
+
 const handleTableActions = (state, action) => {
     switch (action.type) {
+        case ACTION_ON_MODAL_WINDOW:
+            return { [action.modal] : action.show };
+        case ACTIVATE_TABLE_ROW:
+            const editable = action.rowIndex !== null;
+            return { activeRow : action.rowIndex, editable: editable };
+        case FILTER_TABLE_DATA:
+            return { filterString: action.filterString.toLowerCase() };
         case REQUEST_TABLE_DATA:
             return { isFetching: true };
         case RECIEVE_TABLE_DATA:
@@ -38,22 +59,13 @@ const handleTableActions = (state, action) => {
     }
 };
 
-const initialTable = {
-    isFetching: false,
-        error : false,
-        data: [],
-        filterString: '',
-        sortDesc: false,
-        sortKey: ''
-};
-
-const tableReducer = ( state = initialTable, action ) => {
+const table = ( state = initialTable, action ) => {
     return Object.assign({}, state, handleTableActions(state, action))
 };
 
 const reducers = combineReducers({
     user,
-    table : tableReducer
+    table
 });
 
 export default reducers
