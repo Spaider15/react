@@ -4,8 +4,8 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { actionOnModalWindow } from '../actions';
-import Form from '../components/Form'
+import { actionOnModalWindow } from '../../actions';
+import DeliveryForm from '../../components/DeliveryForm'
 
 const ModalWindow = ({ show, close }) => {
     const submit = (e, options) => {
@@ -17,7 +17,7 @@ const ModalWindow = ({ show, close }) => {
             <Modal.Header closeButton>
                 <Modal.Title>Создание новой записи</Modal.Title>
                 <br/>
-                <Form submit={submit}/>
+                <DeliveryForm submit={submit}/>
             </Modal.Header>
         </Modal>
     )

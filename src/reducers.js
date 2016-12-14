@@ -2,15 +2,16 @@
  * Created by Busarov Ivan Spaider629@gmail.com on 11/26/2016.
  */
 import { combineReducers } from 'redux'
-import { REQUEST_TABLE_DATA, RECIEVE_TABLE_DATA, RECIEVE_TABLE_LOAD_ERROR, FILTER_TABLE_DATA, ACTIVATE_TABLE_ROW, ACTION_ON_MODAL_WINDOW } from './actions/actionTypes'
+import { REQUEST_TABLE_DATA, RECIEVE_TABLE_DATA, RECIEVE_TABLE_LOAD_ERROR, FILTER_TABLE_DATA, ACTIVATE_TABLE_ROW, ACTION_ON_MODAL_WINDOW, ACTION_SWITCH_TABLE } from './actions/actionTypes'
 
 const initialUser = {
     error : null,
-    displayName : "Spaider"
 };
 
 const user = (state = initialUser, action) => {
     switch (action.type){
+        case ACTION_SWITCH_TABLE :
+            return Object.assign({}, state, { table : action.table });
         case 'LOGIN':
         case 'LOGOUT':
            return action.user;
@@ -24,7 +25,8 @@ const user = (state = initialUser, action) => {
 const initialTable = {
     isFetching: false,
     error : false,
-    data: [],
+    assembly : [],
+    delivery : [],
     filterString: '',
     sortDesc: false,
     sortKey: '',
@@ -48,7 +50,7 @@ const handleTableActions = (state, action) => {
         case RECIEVE_TABLE_DATA:
             return {
                 isFetching: false,
-                data : action.data
+                [action.table] : action.data
             };
         case RECIEVE_TABLE_LOAD_ERROR:
             return {

@@ -7,8 +7,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import LoginForm from './LoginForm';
 import TablePage from './TablePage';
-import ModalCreateWindow from './ModalCreateWindow';
-import ModalEditWindow from './ModalEditWindow';
+
 
 const mapStateToProps = ({user}) => { return { user } };
 
@@ -18,8 +17,6 @@ let Main = ({ user }) => {
             <div>
                 <Header/>
                 <TablePage/>
-                <ModalCreateWindow/>
-                <ModalEditWindow/>
             </div>
         );
     } else {

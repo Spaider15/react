@@ -4,10 +4,10 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { actionOnModalWindow } from '../actions';
-import Form from '../components/Form'
+import { actionOnModalWindow } from '../../actions';
+import AssemblyForm from '../../components/AssemblyForm'
 
-const ModalWindow = ({ show, data, close }) => {
+const ModalWindow = ({ show, close }) => {
     const submit = (e, options) => {
         e.preventDefault();
         console.log(options.reduce( (acc,item) => Object.assign(acc, { [item.id] : item.value }), {} ))
@@ -17,23 +17,20 @@ const ModalWindow = ({ show, data, close }) => {
             <Modal.Header closeButton>
                 <Modal.Title>Создание новой записи</Modal.Title>
                 <br/>
-                <Form submit={submit} defaults={data}/>
+                <AssemblyForm submit={submit}/>
             </Modal.Header>
         </Modal>
     )
 };
 
 const mapStateToProps = ({table}) => {
-    return {
-        show : table.editModalWindow,
-        data : table.data[table.activeRow]
-    }
+    return { show : table.createModalWindow }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         close : () => {
-            dispatch(actionOnModalWindow('editModalWindow', false))
+            dispatch(actionOnModalWindow('createModalWindow', false))
         }
     }
 };

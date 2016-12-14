@@ -3,7 +3,7 @@
  */
 const http = require('http');
 const server = http.createServer((req,res) => {
-    const table = [
+    const delivery = [
         {
             id : 1,
             date : 2016-11-20,
@@ -65,16 +65,74 @@ const server = http.createServer((req,res) => {
             closed : 0
         }
     ];
+
+    const assembly = [
+        {
+            id : 1,
+            date : 2016-11-20,
+            city : 'Казань',
+            adress : 'Московская 20',
+            responsible : 'Максим',
+            price : 1000,
+            phone : 88888888,
+            order : 'Комод',
+            operator : 400,
+            note: 'Комментарий',
+            closed : 'on'
+        },
+        {
+            id : 2,
+            date : 2016-11-20,
+            city : 'Казань',
+            adress : 'Московская 20',
+            responsible : 'Максим',
+            price : 1000,
+            phone : 88888888,
+            order : 'Комод',
+            operator : 400,
+            note: 'Комментарий',
+            closed : 'on'
+        },
+        {
+            id : 3,
+            date : 2016-11-20,
+            city : 'Казань',
+            adress : 'Московская 20',
+            responsible : 'Артур',
+            price : 1000,
+            phone : 88888888,
+            order : 'Комод',
+            operator : 400,
+            note: 'Комментарий',
+            closed : 'on'
+        },
+        {
+            id : 4,
+            date : 2016-11-20,
+            city : 'Казань',
+            adress : 'Московская 20',
+            responsible : 'Коля',
+            price : 1000,
+            phone : 88888888,
+            order : 'Комод',
+            operator : 400,
+            note: 'Комментарий',
+            closed : 'on'
+        }
+    ];
+
     res.setHeader("Access-Control-Allow-Origin", "*");
     switch(req.url){
         case '/auth':
             res.end(JSON.stringify({ displayName : 'Spaider' }));
             break;
-        case '/table':
-            setTimeout( () => { res.end(JSON.stringify(table));
-
+        case '/delivery':
+            setTimeout( () => { res.end(JSON.stringify(delivery));
             }, 1000 )
-
+            break;
+        case '/assembly':
+            setTimeout( () => { res.end(JSON.stringify(assembly));
+            }, 1000 )
             break;
         default:
             res.end('test web server')

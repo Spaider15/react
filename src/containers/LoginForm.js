@@ -11,7 +11,7 @@ let LoginForm = ({user, login}) => {
     let username, password;
     function handleSubmit(e){
         e.preventDefault();
-        login(username, password);
+        login(username.value, password.value);
     }
 
         return(

@@ -44,12 +44,12 @@ export default ({submit, defaults = {}}) => {
                 </Col>
             </FormGroup>
 
-            <FormGroup controlId="address">
+            <FormGroup controlId="adress">
                 <Col sm={3}>
                     Адрес:
                 </Col>
                 <Col sm={9}>
-                    <FormControl type="text" placeholder="Адрес"  defaultValue={def('address')} inputRef={ref => options.push(ref)}/>
+                    <FormControl type="text" placeholder="Адрес"  defaultValue={def('adress')} inputRef={ref => options.push(ref)}/>
                 </Col>
             </FormGroup>
 
@@ -72,12 +72,12 @@ export default ({submit, defaults = {}}) => {
             </FormGroup>
 
 
-            <FormGroup controlId="comment">
+            <FormGroup controlId="note">
                 <Col sm={3}>
                     Комментарий:
                 </Col>
                 <Col sm={9}>
-                    <FormControl type="text" placeholder="Комментарий"  defaultValue={def('comment')} inputRef={ref => options.push(ref)}/>
+                    <FormControl type="text" placeholder="Комментарий"  defaultValue={def('note')} inputRef={ref => options.push(ref)}/>
                 </Col>
             </FormGroup>
 
